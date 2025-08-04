@@ -7,6 +7,7 @@ import { useCallback, useState } from 'react';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 
 import useRegisterModal from '@/hooks/useRegisterModal';
+import useLoginModal from '@/hooks/useLoginModal';
 import Modal from './Modal';
 import Heading from '../Heading';
 import Input from '../inputs/Input';
@@ -17,6 +18,7 @@ import { signIn } from 'next-auth/react';
 const RegisterModal = () => {
   // Hook que controla o estado (aberto/fechado) do modal
   const registerModal = useRegisterModal();
+  const loginModal = useLoginModal();
 
   // Estado para controlar o carregamento (usado para desabilitar botões e inputs enquanto envia o formulário)
   const [isLoading, setIsLoading] = useState(false);
@@ -51,6 +53,12 @@ const RegisterModal = () => {
         setIsLoading(false);
       });
   };
+
+  // Função para alternar entre os modais de registro e login
+  const toggle = useCallback(() => {
+    registerModal.onClose();
+    loginModal.onOpen();
+  }, [registerModal, loginModal]);
 
   // Corpo do Modal
   const bodyContent = (
@@ -110,7 +118,7 @@ const RegisterModal = () => {
         <div className="justify-center flex flex-row items-center gap-2">
           <div>Already heave an account?</div>
           <div
-            onClick={registerModal.onClose}
+            onClick={toggle}
             className="
             text-neutral-800
             cursor-pointer

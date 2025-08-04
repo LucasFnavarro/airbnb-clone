@@ -9,6 +9,7 @@ const Logo = () => {
   return (
     <div>
       <Image
+        onClick={() => router.push('/')}
         alt="logo airbnb"
         className="hidden md:block cursor-pointer"
         height={100}

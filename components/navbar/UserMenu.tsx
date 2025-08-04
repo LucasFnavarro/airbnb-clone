@@ -8,6 +8,7 @@ import useRegisterModal from '@/hooks/useRegisterModal';
 import useLoginModal from '@/hooks/useLoginModal';
 import { signOut } from 'next-auth/react';
 import { SafeUser } from '@/types';
+import { useRouter } from 'next/router';
 
 interface UserMenuProps {
   currentUser?: SafeUser | null;
@@ -27,11 +28,21 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
     setIsOpen(value => !value);
   }, []);
 
+  // Função que lida com o clique no botão "Airbnb your home".
+  // Se o usuário não estiver logado, abre o modal de login.
+  const onRent = useCallback(() => {
+    if (!currentUser) {
+      return loginModal.onOpen();
+    }
+
+    // Open Rent Modal
+  }, [currentUser, loginModal]);
+
   return (
     <div className="relative">
       <div className="flex flex-row items-center gap-3">
         <div
-          onClick={() => {}}
+          onClick={onRent}
           className="
                   hidden
                   md:block
