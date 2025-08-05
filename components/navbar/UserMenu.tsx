@@ -6,9 +6,9 @@ import { useCallback, useState } from 'react';
 import MenuItem from './MenuItem';
 import useRegisterModal from '@/hooks/useRegisterModal';
 import useLoginModal from '@/hooks/useLoginModal';
+import useRentModal from '@/hooks/useRentModal';
 import { signOut } from 'next-auth/react';
 import { SafeUser } from '@/types';
-import { useRouter } from 'next/router';
 
 interface UserMenuProps {
   currentUser?: SafeUser | null;
@@ -18,6 +18,7 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
   // Hook que controla abrir/fechar do modal de cadastro
   const registerModal = useRegisterModal();
   const loginModal = useLoginModal();
+  const rentModal = useRentModal();
 
   // isOpen: controla se o menu dropdown está aberto.
   const [isOpen, setIsOpen] = useState(false);
@@ -36,7 +37,8 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
     }
 
     // Open Rent Modal
-  }, [currentUser, loginModal]);
+    rentModal.onOpen();
+  }, [currentUser, loginModal, rentModal]);
 
   return (
     <div className="relative">
@@ -105,7 +107,7 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
                 <MenuItem onClick={() => {}} label="My Favorites" />
                 <MenuItem onClick={() => {}} label="My reservations" />
                 <MenuItem onClick={() => {}} label="My properties" />
-                <MenuItem onClick={() => {}} label="Airbnb my home" />
+                <MenuItem onClick={rentModal.onOpen} label="Airbnb my home" />
                 <hr />
                 <span className="text-rose-500">
                   <MenuItem onClick={signOut} label="Logout" />
