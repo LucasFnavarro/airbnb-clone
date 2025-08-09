@@ -26,7 +26,7 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
   // Função que alterna o menu aberto/fechado.
   // É memoizada com useCallback para evitar recriações desnecessárias em cada render — útil para performance, principalmente se a função for passada como prop.
   const toggleOpen = useCallback(() => {
-    setIsOpen(value => !value);
+    setIsOpen((value) => !value);
   }, []);
 
   // Função que lida com o clique no botão "Airbnb your home".
