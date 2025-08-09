@@ -18,25 +18,29 @@ const ListingReservation: React.FC<ListingReservationProps> = ({
   dateRange,
   totalPrice,
   onChangeDate,
+  onSubmit,
   disabled,
   disabledDates,
 }) => {
   return (
     <div
       className="
-    bg-white
-    rounded-xl
-    border-[1px]
-    overflow-hidden
+        bg-white
+        rounded-xl
+        border-[1px]
+        overflow-hidden
+        border-neutral-200
     "
     >
-      <div
-        className="
-        flex flex-row items-center gap-1 p-4
-        "
-      >
-        <div className="text-2xl font-semibold">$ {price}</div>
-        <div className="font-light text-neutral-600">night</div>
+      <div className="flex flex-row items-center gap-1 p-4">
+        <div className="text-2xl font-semibold">
+          R${' '}
+          {price.toLocaleString('pt-BR', {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2,
+          })}
+        </div>
+        <div className="font-light text-neutral-600">por noite</div>
       </div>
       <hr />
       <Calendar
@@ -57,7 +61,13 @@ const ListingReservation: React.FC<ListingReservationProps> = ({
       "
       >
         <div>Total</div>
-        <div>$ {price}</div>
+        <div>
+          R${' '}
+          {totalPrice.toLocaleString('pt-BR', {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2,
+          })}
+        </div>
       </div>
     </div>
   );
